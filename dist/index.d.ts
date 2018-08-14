@@ -1,19 +1,18 @@
-/// <reference types="three" />
 import * as THREE from 'three';
 /**
-* @author qiao / https://github.com/qiao
-* @author mrdoob / http://mrdoob.com
-* @author alteredq / http://alteredqualia.com/
-* @author WestLangley / http://github.com/WestLangley
-* @author erich666 / http://erichaines.com
-* @author nicolaspanel / http://github.com/nicolaspanel
-*
-* This set of controls performs orbiting, dollying (zooming), and panning.
-* Unlike TrackballControls, it maintains the "up" direction object.up (+Y by default).
-*    Orbit - left mouse / touch: one finger move
-*    Zoom - middle mouse, or mousewheel / touch: two finger spread or squish
-*    Pan - right mouse, or arrow keys / touch: three finger swipe
-*/
+ * @author qiao / https://github.com/qiao
+ * @author mrdoob / http://mrdoob.com
+ * @author alteredq / http://alteredqualia.com/
+ * @author WestLangley / http://github.com/WestLangley
+ * @author erich666 / http://erichaines.com
+ * @author nicolaspanel / http://github.com/nicolaspanel
+ *
+ * This set of controls performs orbiting, dollying (zooming), and panning.
+ * Unlike TrackballControls, it maintains the "up" direction object.up (+Y by default).
+ *    Orbit - left mouse / touch: one finger move
+ *    Zoom - middle mouse, or mousewheel / touch: two finger spread or squish
+ *    Pan - right mouse, or arrow keys / touch: three finger swipe
+ */
 export declare class OrbitControls extends THREE.EventDispatcher {
     object: THREE.Camera;
     domElement: HTMLElement | HTMLDocument;
@@ -100,6 +99,19 @@ export declare class OrbitControls extends THREE.EventDispatcher {
     getAzimuthalAngle(): number;
     dispose(): void;
     reset(): void;
+    saveState(): void;
     readonly center: THREE.Vector3;
     noZoom: boolean;
+    /**
+     * TS typeguard. Checks whether the provided camera is PerspectiveCamera.
+     * If the check passes (returns true) the passed camera will have the type THREE.PerspectiveCamera in the if branch where the check was performed.
+     * @param camera Object to be checked.
+     */
+    private _checkPerspectiveCamera(camera);
+    /**
+     * TS typeguard. Checks whether the provided camera is OrthographicCamera.
+     * If the check passes (returns true) the passed camera will have the type THREE.OrthographicCamera in the if branch where the check was performed.
+     * @param camera Object to be checked.
+     */
+    private _checkOrthographicCamera(camera);
 }

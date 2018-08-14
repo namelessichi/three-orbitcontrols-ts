@@ -1,9 +1,15 @@
 "use strict";
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
 var THREE = require("three");
 var STATE = {
     NONE: -1,
@@ -19,19 +25,19 @@ var START_EVENT = { type: 'start' };
 var END_EVENT = { type: 'end' };
 var EPS = 0.000001;
 /**
-* @author qiao / https://github.com/qiao
-* @author mrdoob / http://mrdoob.com
-* @author alteredq / http://alteredqualia.com/
-* @author WestLangley / http://github.com/WestLangley
-* @author erich666 / http://erichaines.com
-* @author nicolaspanel / http://github.com/nicolaspanel
-*
-* This set of controls performs orbiting, dollying (zooming), and panning.
-* Unlike TrackballControls, it maintains the "up" direction object.up (+Y by default).
-*    Orbit - left mouse / touch: one finger move
-*    Zoom - middle mouse, or mousewheel / touch: two finger spread or squish
-*    Pan - right mouse, or arrow keys / touch: three finger swipe
-*/
+ * @author qiao / https://github.com/qiao
+ * @author mrdoob / http://mrdoob.com
+ * @author alteredq / http://alteredqualia.com/
+ * @author WestLangley / http://github.com/WestLangley
+ * @author erich666 / http://erichaines.com
+ * @author nicolaspanel / http://github.com/nicolaspanel
+ *
+ * This set of controls performs orbiting, dollying (zooming), and panning.
+ * Unlike TrackballControls, it maintains the "up" direction object.up (+Y by default).
+ *    Orbit - left mouse / touch: one finger move
+ *    Zoom - middle mouse, or mousewheel / touch: two finger spread or squish
+ *    Pan - right mouse, or arrow keys / touch: three finger swipe
+ */
 var OrbitControls = (function (_super) {
     __extends(OrbitControls, _super);
     function OrbitControls(object, domElement, domWindow) {
@@ -209,28 +215,28 @@ var OrbitControls = (function (_super) {
                 return;
             switch (event.keyCode) {
                 case _this.keys.UP:
-                    {
-                        _this.pan(0, _this.keyPanSpeed);
-                        _this.update();
-                    }
+                {
+                    _this.pan(0, _this.keyPanSpeed);
+                    _this.update();
+                }
                     break;
                 case _this.keys.BOTTOM:
-                    {
-                        _this.pan(0, -_this.keyPanSpeed);
-                        _this.update();
-                    }
+                {
+                    _this.pan(0, -_this.keyPanSpeed);
+                    _this.update();
+                }
                     break;
                 case _this.keys.LEFT:
-                    {
-                        _this.pan(_this.keyPanSpeed, 0);
-                        _this.update();
-                    }
+                {
+                    _this.pan(_this.keyPanSpeed, 0);
+                    _this.update();
+                }
                     break;
                 case _this.keys.RIGHT:
-                    {
-                        _this.pan(-_this.keyPanSpeed, 0);
-                        _this.update();
-                    }
+                {
+                    _this.pan(-_this.keyPanSpeed, 0);
+                    _this.update();
+                }
                     break;
             }
         };
@@ -240,33 +246,33 @@ var OrbitControls = (function (_super) {
             switch (event.touches.length) {
                 // one-fingered touch: rotate
                 case 1:
-                    {
-                        if (_this.enableRotate === false)
-                            return;
-                        _this.rotateStart.set(event.touches[0].pageX, event.touches[0].pageY);
-                        _this.state = STATE.TOUCH_ROTATE;
-                    }
+                {
+                    if (_this.enableRotate === false)
+                        return;
+                    _this.rotateStart.set(event.touches[0].pageX, event.touches[0].pageY);
+                    _this.state = STATE.TOUCH_ROTATE;
+                }
                     break;
                 // two-fingered touch: dolly
                 case 2:
-                    {
-                        if (_this.enableZoom === false)
-                            return;
-                        var dx = event.touches[0].pageX - event.touches[1].pageX;
-                        var dy = event.touches[0].pageY - event.touches[1].pageY;
-                        var distance = Math.sqrt(dx * dx + dy * dy);
-                        _this.dollyStart.set(0, distance);
-                        _this.state = STATE.TOUCH_DOLLY;
-                    }
+                {
+                    if (_this.enableZoom === false)
+                        return;
+                    var dx = event.touches[0].pageX - event.touches[1].pageX;
+                    var dy = event.touches[0].pageY - event.touches[1].pageY;
+                    var distance = Math.sqrt(dx * dx + dy * dy);
+                    _this.dollyStart.set(0, distance);
+                    _this.state = STATE.TOUCH_DOLLY;
+                }
                     break;
                 // three-fingered touch: pan
                 case 3:
-                    {
-                        if (_this.enablePan === false)
-                            return;
-                        _this.panStart.set(event.touches[0].pageX, event.touches[0].pageY);
-                        _this.state = STATE.TOUCH_PAN;
-                    }
+                {
+                    if (_this.enablePan === false)
+                        return;
+                    _this.panStart.set(event.touches[0].pageX, event.touches[0].pageY);
+                    _this.state = STATE.TOUCH_PAN;
+                }
                     break;
                 default: {
                     _this.state = STATE.NONE;
@@ -284,58 +290,58 @@ var OrbitControls = (function (_super) {
             switch (event.touches.length) {
                 // one-fingered touch: rotate
                 case 1:
-                    {
-                        if (_this.enableRotate === false)
-                            return;
-                        if (_this.state !== STATE.TOUCH_ROTATE)
-                            return; // is this needed?...
-                        _this.rotateEnd.set(event.touches[0].pageX, event.touches[0].pageY);
-                        _this.rotateDelta.subVectors(_this.rotateEnd, _this.rotateStart);
-                        var element = _this.domElement === document ? _this.domElement.body : _this.domElement;
-                        // rotating across whole screen goes 360 degrees around
-                        _this.rotateLeft(2 * Math.PI * _this.rotateDelta.x / element.clientWidth * _this.rotateSpeed);
-                        // rotating up and down along whole screen attempts to go 360, but limited to 180
-                        _this.rotateUp(2 * Math.PI * _this.rotateDelta.y / element.clientHeight * _this.rotateSpeed);
-                        _this.rotateStart.copy(_this.rotateEnd);
-                        _this.update();
-                    }
+                {
+                    if (_this.enableRotate === false)
+                        return;
+                    if (_this.state !== STATE.TOUCH_ROTATE)
+                        return; // is this needed?...
+                    _this.rotateEnd.set(event.touches[0].pageX, event.touches[0].pageY);
+                    _this.rotateDelta.subVectors(_this.rotateEnd, _this.rotateStart);
+                    var element = _this.domElement === document ? _this.domElement.body : _this.domElement;
+                    // rotating across whole screen goes 360 degrees around
+                    _this.rotateLeft(2 * Math.PI * _this.rotateDelta.x / element.clientWidth * _this.rotateSpeed);
+                    // rotating up and down along whole screen attempts to go 360, but limited to 180
+                    _this.rotateUp(2 * Math.PI * _this.rotateDelta.y / element.clientHeight * _this.rotateSpeed);
+                    _this.rotateStart.copy(_this.rotateEnd);
+                    _this.update();
+                }
                     break;
                 // two-fingered touch: dolly
                 case 2:
-                    {
-                        if (_this.enableZoom === false)
-                            return;
-                        if (_this.state !== STATE.TOUCH_DOLLY)
-                            return; // is this needed?...
-                        //console.log( 'handleTouchMoveDolly' );
-                        var dx = event.touches[0].pageX - event.touches[1].pageX;
-                        var dy = event.touches[0].pageY - event.touches[1].pageY;
-                        var distance = Math.sqrt(dx * dx + dy * dy);
-                        _this.dollyEnd.set(0, distance);
-                        _this.dollyDelta.subVectors(_this.dollyEnd, _this.dollyStart);
-                        if (_this.dollyDelta.y > 0) {
-                            _this.dollyOut(_this.getZoomScale());
-                        }
-                        else if (_this.dollyDelta.y < 0) {
-                            _this.dollyIn(_this.getZoomScale());
-                        }
-                        _this.dollyStart.copy(_this.dollyEnd);
-                        _this.update();
+                {
+                    if (_this.enableZoom === false)
+                        return;
+                    if (_this.state !== STATE.TOUCH_DOLLY)
+                        return; // is this needed?...
+                    //console.log( 'handleTouchMoveDolly' );
+                    var dx = event.touches[0].pageX - event.touches[1].pageX;
+                    var dy = event.touches[0].pageY - event.touches[1].pageY;
+                    var distance = Math.sqrt(dx * dx + dy * dy);
+                    _this.dollyEnd.set(0, distance);
+                    _this.dollyDelta.subVectors(_this.dollyEnd, _this.dollyStart);
+                    if (_this.dollyDelta.y > 0) {
+                        _this.dollyOut(_this.getZoomScale());
                     }
+                    else if (_this.dollyDelta.y < 0) {
+                        _this.dollyIn(_this.getZoomScale());
+                    }
+                    _this.dollyStart.copy(_this.dollyEnd);
+                    _this.update();
+                }
                     break;
                 // three-fingered touch: pan
                 case 3:
-                    {
-                        if (_this.enablePan === false)
-                            return;
-                        if (_this.state !== STATE.TOUCH_PAN)
-                            return; // is this needed?...
-                        _this.panEnd.set(event.touches[0].pageX, event.touches[0].pageY);
-                        _this.panDelta.subVectors(_this.panEnd, _this.panStart);
-                        _this.pan(_this.panDelta.x, _this.panDelta.y);
-                        _this.panStart.copy(_this.panEnd);
-                        _this.update();
-                    }
+                {
+                    if (_this.enablePan === false)
+                        return;
+                    if (_this.state !== STATE.TOUCH_PAN)
+                        return; // is this needed?...
+                    _this.panEnd.set(event.touches[0].pageX, event.touches[0].pageY);
+                    _this.panDelta.subVectors(_this.panEnd, _this.panStart);
+                    _this.pan(_this.panDelta.x, _this.panDelta.y);
+                    _this.panStart.copy(_this.panEnd);
+                    _this.update();
+                }
                     break;
                 default: {
                     _this.state = STATE.NONE;
@@ -425,7 +431,7 @@ var OrbitControls = (function (_super) {
     // deltaX and deltaY are in pixels; right and down are positive
     OrbitControls.prototype.pan = function (deltaX, deltaY) {
         var element = this.domElement === document ? this.domElement.body : this.domElement;
-        if (this.object instanceof THREE.PerspectiveCamera) {
+        if (this._checkPerspectiveCamera(this.object)) {
             // perspective
             var position = this.object.position;
             this.panInternalOffset.copy(position).sub(this.target);
@@ -436,7 +442,7 @@ var OrbitControls = (function (_super) {
             this.panLeft(2 * deltaX * targetDistance / element.clientHeight, this.object.matrix);
             this.panUp(2 * deltaY * targetDistance / element.clientHeight, this.object.matrix);
         }
-        else if (this.object instanceof THREE.OrthographicCamera) {
+        else if (this._checkOrthographicCamera(this.object)) {
             // orthographic
             this.panLeft(deltaX * (this.object.right - this.object.left) / this.object.zoom / element.clientWidth, this.object.matrix);
             this.panUp(deltaY * (this.object.top - this.object.bottom) / this.object.zoom / element.clientHeight, this.object.matrix);
@@ -448,10 +454,10 @@ var OrbitControls = (function (_super) {
         }
     };
     OrbitControls.prototype.dollyIn = function (dollyScale) {
-        if (this.object instanceof THREE.PerspectiveCamera) {
+        if (this._checkPerspectiveCamera(this.object)) {
             this.scale /= dollyScale;
         }
-        else if (this.object instanceof THREE.OrthographicCamera) {
+        else if (this._checkOrthographicCamera(this.object)) {
             this.object.zoom = Math.max(this.minZoom, Math.min(this.maxZoom, this.object.zoom * dollyScale));
             this.object.updateProjectionMatrix();
             this.zoomChanged = true;
@@ -462,10 +468,10 @@ var OrbitControls = (function (_super) {
         }
     };
     OrbitControls.prototype.dollyOut = function (dollyScale) {
-        if (this.object instanceof THREE.PerspectiveCamera) {
+        if (this._checkPerspectiveCamera(this.object)) {
             this.scale *= dollyScale;
         }
-        else if (this.object instanceof THREE.OrthographicCamera) {
+        else if (this._checkOrthographicCamera(this.object)) {
             this.object.zoom = Math.max(this.minZoom, Math.min(this.maxZoom, this.object.zoom / dollyScale));
             this.object.updateProjectionMatrix();
             this.zoomChanged = true;
@@ -514,6 +520,14 @@ var OrbitControls = (function (_super) {
         this.update();
         this.state = STATE.NONE;
     };
+    OrbitControls.prototype.saveState = function () {
+        this.target0.copy(this.target);
+        this.position0.copy(this.object.position);
+        // Check whether the camera has zoom property
+        if (this._checkOrthographicCamera(this.object) || this._checkPerspectiveCamera(this.object)) {
+            this.zoom0 = this.object.zoom;
+        }
+    };
     Object.defineProperty(OrbitControls.prototype, "center", {
         // backward compatibility
         get: function () {
@@ -535,6 +549,22 @@ var OrbitControls = (function (_super) {
         enumerable: true,
         configurable: true
     });
+    /**
+     * TS typeguard. Checks whether the provided camera is PerspectiveCamera.
+     * If the check passes (returns true) the passed camera will have the type THREE.PerspectiveCamera in the if branch where the check was performed.
+     * @param camera Object to be checked.
+     */
+    OrbitControls.prototype._checkPerspectiveCamera = function (camera) {
+        return camera.isPerspectiveCamera;
+    };
+    /**
+     * TS typeguard. Checks whether the provided camera is OrthographicCamera.
+     * If the check passes (returns true) the passed camera will have the type THREE.OrthographicCamera in the if branch where the check was performed.
+     * @param camera Object to be checked.
+     */
+    OrbitControls.prototype._checkOrthographicCamera = function (camera) {
+        return camera.isOrthographicCamera;
+    };
     return OrbitControls;
 }(THREE.EventDispatcher));
 exports.OrbitControls = OrbitControls;
